@@ -11,11 +11,11 @@ export interface EventsRequest {
   'dateEnd'?: (string);
   'startQuery'?: (string);
   'endQuery'?: (string);
-  'exclude'?: (boolean);
-  'scheduled'?: (boolean);
-  'comments'?: (boolean);
-  'partitions'?: (boolean);
-  'filter'?: (_events_FilterEvents)[];
+  'filterIsExclude'?: (boolean);
+  'includeScheduled'?: (boolean);
+  'includeComments'?: (boolean);
+  'separatePartitions'?: (boolean);
+  'filters'?: (_events_FilterEvents)[];
   'order'?: (_events_Order | keyof typeof _events_Order);
 }
 
@@ -26,10 +26,10 @@ export interface EventsRequest__Output {
   'dateEnd'?: (string);
   'startQuery'?: (string);
   'endQuery'?: (string);
-  'exclude'?: (boolean);
-  'scheduled'?: (boolean);
-  'comments'?: (boolean);
-  'partitions'?: (boolean);
-  'filter'?: (_events_FilterEvents__Output)[];
+  'filterIsExclude'?: (boolean);
+  'includeScheduled'?: (boolean);
+  'includeComments'?: (boolean);
+  'separatePartitions'?: (boolean);
+  'filters'?: (_events_FilterEvents__Output)[];
   'order'?: (_events_Order);
 }

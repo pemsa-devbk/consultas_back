@@ -1,7 +1,8 @@
 // Original file: proto/events.proto
 
 
-export interface EventoTopResponse {
+export interface EventResponse {
+  'CodigoCte'?: (string);
   'FechaOriginal'?: (string);
   'Hora'?: (string);
   'CodigoEvento'?: (string);
@@ -13,9 +14,16 @@ export interface EventoTopResponse {
   'NombreUsuario'?: (string);
   'DescripcionEvent'?: (string);
   'Particion'?: (number);
+  'ClaveMonitorista'?: (string);
+  'NomCalifEvento'?: (string);
+  'FechaPrimeraToma'?: (string);
+  'HoraPrimeraToma'?: (string);
+  'FechaFinalizo'?: (string);
+  'HoraFinalizo'?: (string);
 }
 
-export interface EventoTopResponse__Output {
+export interface EventResponse__Output {
+  'CodigoCte'?: (string);
   'FechaOriginal'?: (string);
   'Hora'?: (string);
   'CodigoEvento'?: (string);
@@ -27,4 +35,10 @@ export interface EventoTopResponse__Output {
   'NombreUsuario'?: (string);
   'DescripcionEvent'?: (string);
   'Particion'?: (number);
+  'ClaveMonitorista'?: (string);
+  'NomCalifEvento'?: (string);
+  'FechaPrimeraToma'?: (string);
+  'HoraPrimeraToma'?: (string);
+  'FechaFinalizo'?: (string);
+  'HoraFinalizo'?: (string);
 }

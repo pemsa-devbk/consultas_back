@@ -3,24 +3,28 @@
 
 export interface AccountRequest {
   'account'?: (number);
-  'zones'?: (boolean);
-  'partitions'?: (boolean);
-  'users'?: (boolean);
-  'contacts'?: (boolean);
-  'panel'?: (boolean);
-  'security'?: (boolean);
-  'generalData'?: (boolean);
-  'deviceZone'?: (boolean);
+  'includeZones'?: (boolean);
+  'includePartitions'?: (boolean);
+  'includeUsers'?: (boolean);
+  'includeContacts'?: (boolean);
+  'includePanel'?: (boolean);
+  'includeSecurity'?: (boolean);
+  'includeGeneralData'?: (boolean);
+  'includeDeviceZone'?: (boolean);
+  'includeEmail'?: (boolean);
+  'includeSchedule'?: (boolean);
 }
 
 export interface AccountRequest__Output {
   'account'?: (number);
-  'zones'?: (boolean);
-  'partitions'?: (boolean);
-  'users'?: (boolean);
-  'contacts'?: (boolean);
-  'panel'?: (boolean);
-  'security'?: (boolean);
-  'generalData'?: (boolean);
-  'deviceZone'?: (boolean);
+  'includeZones'?: (boolean);
+  'includePartitions'?: (boolean);
+  'includeUsers'?: (boolean);
+  'includeContacts'?: (boolean);
+  'includePanel'?: (boolean);
+  'includeSecurity'?: (boolean);
+  'includeGeneralData'?: (boolean);
+  'includeDeviceZone'?: (boolean);
+  'includeEmail'?: (boolean);
+  'includeSchedule'?: (boolean);
 }

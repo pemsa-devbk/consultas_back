@@ -1,7 +1,7 @@
-// Original file: proto/events.proto
+// Original file: proto/accounts.proto
 
 
-export interface Scheduled {
+export interface Schedule {
   'VerificaApertura'?: (boolean);
   'VerificaCierre'?: (boolean);
   'HorariosApertura'?: (string)[];
@@ -16,7 +16,7 @@ export interface Scheduled {
   'ToleranciaCierreDespues'?: (string);
 }
 
-export interface Scheduled__Output {
+export interface Schedule__Output {
   'VerificaApertura'?: (boolean);
   'VerificaCierre'?: (boolean);
   'HorariosApertura'?: (string)[];

@@ -13,10 +13,10 @@ export interface ProtoGrpcType {
     AccountsRequest: MessageTypeDefinition
     AccountsResponse: MessageTypeDefinition
     Contact: MessageTypeDefinition
-    FilterRequest: MessageTypeDefinition
     GeneralData: MessageTypeDefinition
     Panel: MessageTypeDefinition
     Partition: MessageTypeDefinition
+    Schedule: MessageTypeDefinition
     Security: MessageTypeDefinition
     StateAccount: EnumTypeDefinition
     User: MessageTypeDefinition
@@ -24,31 +24,31 @@ export interface ProtoGrpcType {
   }
   events: {
     AccountEventResponse: MessageTypeDefinition
-    AccountTopEventResponse: MessageTypeDefinition
+    AccountLastEventResponse: MessageTypeDefinition
     AccountsEventResponse: MessageTypeDefinition
-    AccountsTopEventResponse: MessageTypeDefinition
+    AccountsLastEventResponse: MessageTypeDefinition
     CommentResponse: MessageTypeDefinition
+    EventResponse: MessageTypeDefinition
+    EventWOAccountResponse: MessageTypeDefinition
     EventoResponse: MessageTypeDefinition
-    EventoTopResponse: MessageTypeDefinition
     EventsGrouprequest: MessageTypeDefinition
     EventsRequest: MessageTypeDefinition
-    EventsTopGroupRequest: MessageTypeDefinition
-    EventsTopRequest: MessageTypeDefinition
     EventsWOAccountRequest: MessageTypeDefinition
     FilterEvents: MessageTypeDefinition
     GroupEventsResponse: MessageTypeDefinition
-    GroupTopEventsResponse: MessageTypeDefinition
+    GroupLastEventResponse: MessageTypeDefinition
     GroupsEventsResponse: MessageTypeDefinition
-    GroupsEventsTopResponse: MessageTypeDefinition
+    GroupsLastEventResponse: MessageTypeDefinition
+    LastEventGroupRequest: MessageTypeDefinition
+    LastEventRequest: MessageTypeDefinition
+    LastEventoResponse: MessageTypeDefinition
     Order: EnumTypeDefinition
-    Scheduled: MessageTypeDefinition
     TypeCode: EnumTypeDefinition
   }
   groups: {
     Group: MessageTypeDefinition
     GroupRequest: MessageTypeDefinition
     GroupRequestFilter: MessageTypeDefinition
-    GroupsRequestFilter: MessageTypeDefinition
     ResponseGroups: MessageTypeDefinition
     SearchRequestGroup: MessageTypeDefinition
     TypeGroup: EnumTypeDefinition

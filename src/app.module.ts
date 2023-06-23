@@ -15,10 +15,12 @@ import { DownloadModule } from './download/download.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '/public')
     }),
-    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mssql',
       host: process.env.DB_HOST,

@@ -7,6 +7,7 @@ import type { User as _accounts_User, User__Output as _accounts_User__Output } f
 import type { Contact as _accounts_Contact, Contact__Output as _accounts_Contact__Output } from '../accounts/Contact';
 import type { GeneralData as _accounts_GeneralData, GeneralData__Output as _accounts_GeneralData__Output } from '../accounts/GeneralData';
 import type { Security as _accounts_Security, Security__Output as _accounts_Security__Output } from '../accounts/Security';
+import type { Schedule as _accounts_Schedule, Schedule__Output as _accounts_Schedule__Output } from '../accounts/Schedule';
 
 export interface Account {
   'CodigoCte'?: (string);
@@ -21,6 +22,8 @@ export interface Account {
   'contactos'?: (_accounts_Contact)[];
   'datosGeneralesDetallados'?: (_accounts_GeneralData | null);
   'seguridad'?: (_accounts_Security | null);
+  'emails'?: (string)[];
+  'horario'?: (_accounts_Schedule | null);
 }
 
 export interface Account__Output {
@@ -36,4 +39,6 @@ export interface Account__Output {
   'contactos'?: (_accounts_Contact__Output)[];
   'datosGeneralesDetallados'?: (_accounts_GeneralData__Output);
   'seguridad'?: (_accounts_Security__Output);
+  'emails'?: (string)[];
+  'horario'?: (_accounts_Schedule__Output);
 }

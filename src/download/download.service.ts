@@ -141,9 +141,10 @@ export class DownloadService {
 
     if (report.showGraphs) {
       positionTable = 118;
-      const close = getPercentaje(data!.cuentas.filter(account => account.eventos?.find(ev => ['CS', 'C'].includes(ev.CodigoAlarma))).length, data!.cuentas.length);
-      const open = getPercentaje(data!.cuentas.filter(account => account.eventos?.find(ev => ['OS', 'O'].includes(ev.CodigoAlarma))).length, data!.cuentas.length);
-      const withOut = getPercentaje(data!.cuentas.filter(account => account.eventos ? false : true).length, data!.cuentas.length);
+      const close = getPercentaje(data!.cuentas.filter(account => ['CS', 'C'].includes(account.evento?.CodigoAlarma)).length, data.cuentas.length);
+      const open = getPercentaje(data!.cuentas.filter(account => ['O', 'OS'].includes(account.evento?.CodigoAlarma)).length, data!.cuentas.length);
+      const withOut = getPercentaje(data!.cuentas.filter(account => account.evento ? false : true).length, data!.cuentas.length);
+      
       createGraph(doc, [
         { ...open, rgb: { r: 28, g: 207, b: 158 }, textHelph: 'SUCURSALES ABIERTAS' },
         { ...close, rgb: { r: 255, g: 119, b: 130 }, textHelph: 'SUCURSALES CERRADAS' },
@@ -151,8 +152,8 @@ export class DownloadService {
       ]);
     }
     const body: RowInput[] = data?.cuentas.map(account => {
-      const color = account.eventos
-        ? (['O', 'OS'].includes(account.eventos[0].CodigoAlarma))
+      const color = account.evento
+        ? (['O', 'OS'].includes(account.evento.CodigoAlarma))
           ?
           '#3acf9e'
           :
@@ -161,10 +162,10 @@ export class DownloadService {
       return [
         account.CodigoAbonado,
         account.Nombre,
-        account.eventos ? account.eventos[0].FechaOriginal + ' ' + account.eventos[0].Hora.substring(0, 5) : '',
+        account.evento ? account.evento.FechaOriginal + ' ' + account.evento.Hora.substring(0, 5) : '',
         {
-          content: account.eventos
-            ? (['O', 'OS'].includes(account.eventos[0].CodigoAlarma))
+          content: account.evento
+            ? (['O', 'OS'].includes(account.evento.CodigoAlarma))
               ?
               'Abierto'
               :
@@ -175,7 +176,7 @@ export class DownloadService {
             fontStyle: 'bold'
           }
         },
-        account.eventos ? account.eventos[0].NombreUsuario : ''
+        account.evento ? account.evento.NombreUsuario : ''
       ]
     }) || [];
 
@@ -211,29 +212,29 @@ export class DownloadService {
       if( !value ){
         return '';
       }
-      return `${value[0].FechaOriginal} ${ value[0].Hora.substring(0, 5)}`;
+      return `${value.FechaOriginal} ${ value.Hora.substring(0, 5)}`;
     }
     const conditionState = (value: any) => {
       if(!value){
         return 'Sin estado'
       }
-      return ['O', 'OS'].includes(value[0].CodigoAlarma) ? 'Abierto' : 'Cerrado'
+      return ['O', 'OS'].includes(value.CodigoAlarma) ? 'Abierto' : 'Cerrado'
     }
     const conditionColorState = (value: any) => {
       if (!value) {
         return 'FFdfd32b'
       }
-      return ['O', 'OS'].includes(value[0].CodigoAlarma) ? 'FF3acf9e' : 'FFff7782'
+      return ['O', 'OS'].includes(value.CodigoAlarma) ? 'FF3acf9e' : 'FFff7782'
     }
     const conditionName = (value: any) => {
       if (!value) {
         return ''
       }
-      return value[0].NombreUsuario
+      return value.NombreUsuario
     }
     data.cuentas.forEach( (account, idx) => {
       styleColum(sheet, 14 + idx, 18, 'FFFFFFFF');
-      printData(sheet, account, [{ colspan: 1, key: "CodigoAbonado" }, { colspan: 4, key: "Nombre" }, { colspan: 2, key: "eventos", conditionValue: conditionFecha }, { colspan: 1, key: 'eventos', conditionValue: conditionState, conditionColor: conditionColorState }, { colspan: 2, key: "eventos", conditionValue: conditionName }], 14+idx,2, 0)
+      printData(sheet, account, [{ colspan: 1, key: "CodigoAbonado" }, { colspan: 4, key: "Nombre" }, { colspan: 2, key: "evento", conditionValue: conditionFecha }, { colspan: 1, key: 'evento', conditionValue: conditionState, conditionColor: conditionColorState }, { colspan: 2, key: "evento", conditionValue: conditionName }], 14+idx,2, 0)
       
     })
 

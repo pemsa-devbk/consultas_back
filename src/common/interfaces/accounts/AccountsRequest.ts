@@ -4,26 +4,30 @@ import type { StateAccount as _accounts_StateAccount } from '../accounts/StateAc
 
 export interface AccountsRequest {
   'accounts'?: (number)[];
-  'zones'?: (boolean);
-  'partitions'?: (boolean);
-  'users'?: (boolean);
-  'contacts'?: (boolean);
-  'panel'?: (boolean);
-  'security'?: (boolean);
-  'generalData'?: (boolean);
-  'deviceZone'?: (boolean);
+  'includeZones'?: (boolean);
+  'includePartitions'?: (boolean);
+  'includeUsers'?: (boolean);
+  'includeContacts'?: (boolean);
+  'includePanel'?: (boolean);
+  'includeSecurity'?: (boolean);
+  'includeGeneralData'?: (boolean);
+  'includeDeviceZone'?: (boolean);
+  'includeEmail'?: (boolean);
+  'includeSchedule'?: (boolean);
   'state'?: (_accounts_StateAccount | keyof typeof _accounts_StateAccount);
 }
 
 export interface AccountsRequest__Output {
   'accounts'?: (number)[];
-  'zones'?: (boolean);
-  'partitions'?: (boolean);
-  'users'?: (boolean);
-  'contacts'?: (boolean);
-  'panel'?: (boolean);
-  'security'?: (boolean);
-  'generalData'?: (boolean);
-  'deviceZone'?: (boolean);
+  'includeZones'?: (boolean);
+  'includePartitions'?: (boolean);
+  'includeUsers'?: (boolean);
+  'includeContacts'?: (boolean);
+  'includePanel'?: (boolean);
+  'includeSecurity'?: (boolean);
+  'includeGeneralData'?: (boolean);
+  'includeDeviceZone'?: (boolean);
+  'includeEmail'?: (boolean);
+  'includeSchedule'?: (boolean);
   'state'?: (_accounts_StateAccount);
 }

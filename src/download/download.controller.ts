@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param, StreamableFile } from '@nestjs/common';
+import { Controller, Post, Body, Param, StreamableFile, VERSION_NEUTRAL } from '@nestjs/common';
 import { DownloadService } from './download.service';
 import { ReportDTO, FileType, ReportDatesDTO } from '../common/dto';
 import { FormatFileDto } from './dto/file-type.dto';
@@ -6,7 +6,10 @@ import { User } from '../user/entities/user.entity';
 import { GetUser } from '../auth/decorators/get-user.decorator';
 import { Auth } from '../auth/decorators/auth.decorator';
 
-@Controller('download')
+@Controller({
+  version: VERSION_NEUTRAL,
+  path: 'download'
+})
 export class DownloadController {
   constructor(private readonly downloadService: DownloadService) {}
 

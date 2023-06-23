@@ -1,11 +1,14 @@
-import { Controller, Get, Post, Body, Param, BadRequestException, Patch, Query, ParseUUIDPipe, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, BadRequestException, Patch, Query, ParseUUIDPipe, Delete, VERSION_NEUTRAL } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, PaginationDto, UpdateUserDto } from './dto';
 import { Auth, GetUser } from '../auth/decorators';
 import { User } from './entities';
 import { ValidRoles } from '../auth/interfaces';
 
-@Controller('user')
+@Controller({
+  version: VERSION_NEUTRAL,
+  path: 'user'
+})
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
@@ -59,12 +62,16 @@ export class UserController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateUserDto: UpdateUserDto
   ) {
+    
+    // if(updateUserDto.roles && user.roles.includes('holder')){
+
+    // }
     if (user.roles.includes('holder')) {
       updateUserDto.roles = ['user'];
     }
-    if (user.roles.includes('admin') && !updateUserDto.roles) {
-      throw new BadRequestException('El rol es necesario');
-    }
+    // if (user.roles.includes('admin') && !updateUserDto.roles) {
+    //   throw new BadRequestException('El rol es necesario');
+    // }
     return await this.userService.update(user, id, updateUserDto);
   }
 

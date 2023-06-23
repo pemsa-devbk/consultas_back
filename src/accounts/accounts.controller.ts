@@ -25,6 +25,8 @@ export class AccountsController {
   async getMyGroups(
     @GetUser() user: User
   ) {
+    console.log('aqui');
+    
     return await this.accSr.getMyGroupsAccounts(user);
   }
 

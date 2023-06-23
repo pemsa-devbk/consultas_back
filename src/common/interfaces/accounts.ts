@@ -13,10 +13,10 @@ export interface ProtoGrpcType {
     AccountsRequest: MessageTypeDefinition
     AccountsResponse: MessageTypeDefinition
     Contact: MessageTypeDefinition
-    FilterRequest: MessageTypeDefinition
     GeneralData: MessageTypeDefinition
     Panel: MessageTypeDefinition
     Partition: MessageTypeDefinition
+    Schedule: MessageTypeDefinition
     Security: MessageTypeDefinition
     StateAccount: EnumTypeDefinition
     User: MessageTypeDefinition

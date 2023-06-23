@@ -23,7 +23,9 @@ export class ReportsService implements OnModuleInit {
     ) { }
 
     onModuleInit() {
+        
         this.dbService = this.client.getService<DbServiceClient>('DbService');
+        
     }
 
     // For reports
@@ -244,20 +246,20 @@ export class ReportsService implements OnModuleInit {
     }
 
     // * Private method for get data
-    private async getEventsIndividualAccounts(accounts: number[], filter: FilterEvents[], dateStart: string, dateEnd: string, order: Order, partitions: boolean = true, exclude: boolean = false) {
-        return await firstValueFrom(this.dbService.getEvents({ accounts, filter, dateStart, dateEnd, state: "Activas", exclude, partitions, order }));
+    private async getEventsIndividualAccounts(accounts: number[], filters: FilterEvents[], dateStart: string, dateEnd: string, order: Order, separatePartitions: boolean = true, filterIsExclude: boolean = false) {
+        return await firstValueFrom(this.dbService.getEventsWithAccounts({ accounts, filters, dateStart, dateEnd, state: "Activas", filterIsExclude, separatePartitions, order }));
     }
 
-    private async getEventsGroup(accounts: number[], typeAccount: number, filter: FilterEvents[], dateStart: string, dateEnd: string, order: Order, partitions: boolean = true, exclude: boolean = false) {
-        return await firstValueFrom(this.dbService.getEventsFromGroup({ accounts, typeAccount, dateEnd, dateStart, filter, exclude, partitions, state: "Activas", order }));
+    private async getEventsGroup(accounts: number[], typeAccount: number, filters: FilterEvents[], dateStart: string, dateEnd: string, order: Order, separatePartitions: boolean = true, filterIsExclude: boolean = false) {
+        return await firstValueFrom(this.dbService.getEventsFromGroup({ groups: accounts.map(ac => ({ id: ac, type: typeAccount })), dateEnd, dateStart, filters, filterIsExclude, separatePartitions, state: "Activas", order }));
     }
 
-    private async getTopEventsIndividualAccounts(accounts: number[], filter: FilterEvents[]) {
-        return await firstValueFrom(this.dbService.getTopEvents({ accounts, filter, partitions: true, state: "Activas" }));
+    private async getTopEventsIndividualAccounts(accounts: number[], filters: FilterEvents[]) {
+        return await firstValueFrom(this.dbService.getLasEventFromAccount({ accounts, filters, separatePartitions: true, state: "Activas" }));
     }
 
-    private async getTopEventsGroup(accounts: number[], typeAccount: number, filter: FilterEvents[]) {
-        return await firstValueFrom(this.dbService.getTopEventsFromGroup({ accounts, typeAccount, filter, partitions: true, state: "Activas" }));
+    private async getTopEventsGroup(accounts: number[], typeAccount: number, filters: FilterEvents[]) {
+        return await firstValueFrom(this.dbService.getLastEventFromGroup({ groups: accounts.map(ac => ({ id: ac, type: typeAccount })), filters, separatePartitions: true, state: "Activas" }));
     }
 
     private handleError(error: any): never {

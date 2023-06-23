@@ -30,14 +30,15 @@ export class AccountsService implements OnModuleInit {
 
     onModuleInit() {
         this.dbService = this.client.getService<DbServiceClient>('DbService');
+        
     }
 
     async getMyAccounts(user: User) {
         if (user.roles.includes('admin')) { // * Mostrartodas las cuentas 
             try {
                 const queries = forkJoin([
-                    this.dbService.AllAccounts({ state: "Activas" }),
-                    this.dbService.AllGroups({}),
+                    this.dbService.searchAccounts({ state: "Activas" }),
+                    this.dbService.searchGroups({}),
                 ]);
                 const [accounts, groups] = await firstValueFrom(queries);
                 return {
@@ -79,7 +80,7 @@ export class AccountsService implements OnModuleInit {
     async getMyIndividualAccounts(user: User) {
         if (user.roles.includes('admin')) { // * Admin Mostrar todas las cuentas
             try {
-                const accounts = await firstValueFrom(this.dbService.allAccounts({state: 'Activas'}));
+                const accounts = await firstValueFrom(this.dbService.searchAccounts({state: 'Activas'}));
                 return {
                     accounts: accounts.accounts
                 }
@@ -116,7 +117,7 @@ export class AccountsService implements OnModuleInit {
     async getMyGroupsAccounts(user: User) {
         if (user.roles.includes('admin')) {
             try {
-                const groups = await firstValueFrom(this.dbService.allGroups({}));
+                const groups = await firstValueFrom(this.dbService.searchGroups({}));
                 return {
                     groups: groups.groups
                 }
@@ -400,7 +401,7 @@ export class AccountsService implements OnModuleInit {
     } // * Proceso para obtener las cuentas individuales faltantes (getMyAccounts, getMyIndividualAccounts)
 
     private async getGroups(groups: GroupRequest[], showAccounts: boolean = false) {
-        return await firstValueFrom(this.dbService.searchGroups({ groups, showAccounts, state: "Activas" }));
+        return await firstValueFrom(this.dbService.searchGroups({ groups, includeAccounts: showAccounts, state: "Activas" }));
     }
     private async getAccounts(accounts: number[]) {
         return await firstValueFrom(this.dbService.searchAccounts({ accounts, state: 'Activas' }));

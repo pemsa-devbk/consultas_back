@@ -17,3 +17,25 @@ export class ReportDTO {
     @IsOptional()
     showGraphs?: boolean;
 }
+
+export class ReportDTOv1 {
+    @ArrayNotEmpty()
+    @IsInt({
+        each: true,
+        message: 'Las cuentas deben ser de tipo numerico'
+    })
+    accounts: number[];
+
+    // TODO Change for enum
+    @IsIn([1, 2, 3, 4], {
+        message: 'Tipo de cuenta no valido'
+    })
+    typeAccount: number;
+
+    @IsBoolean()
+    advanced: boolean;
+
+    @IsBoolean()
+    @IsOptional()
+    showGraphs?: boolean;
+}

@@ -7,10 +7,12 @@ import { CustomGroup, GroupAccount } from './entities';
 import { CommonModule } from '../common/common.module';
 import { AccountsController } from './accounts.controller';
 import { AccountsService } from './accounts.service';
+import { AccountsController as AccountsControllerv1 } from './old/accounts.controller';
+import { AccountsService as AccountsServicev1 } from './old/accounts.service';
 
 @Module({
-  controllers: [AccountsController],
-  providers: [AccountsService],
+  controllers: [AccountsController, AccountsControllerv1],
+  providers: [AccountsService, AccountsServicev1],
   imports: [
     TypeOrmModule.forFeature([UserAccounts, CustomGroup, GroupAccount]),
     AuthModule,
