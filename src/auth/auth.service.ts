@@ -23,12 +23,19 @@ export class AuthService {
       where: {email},
       select: {
         email: true,isActive: true, fullName: true, termsAndConditions: true, roles: true, password: true, id: true
+      },
+      relations: {
+        company: true
       }
     });
 
     if (!user) throw new UnauthorizedException('Credenciales no validas');
 
-    if(!user.isActive) throw new UnauthorizedException('Usuario inactivo, comunicate con un administrador')
+    if(!user.isActive) throw new UnauthorizedException('Usuario inactivo, comunicate con un administrador');
+
+    if(!user.roles.includes("super-user")){
+      if(!user.company.serviceIsActive) throw new UnauthorizedException('Servicio aun no habilitado')
+    }
 
     if (!bcrypt.compareSync(password, user.password)) throw new UnauthorizedException('Credenciales no validas');
     delete user.password;

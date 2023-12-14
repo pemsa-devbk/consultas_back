@@ -1,4 +1,4 @@
-import { IsArray, IsEmail, IsIn, IsOptional, IsString, MinLength } from "class-validator";
+import { IsEmail, IsIn, IsOptional, IsString, MinLength } from "class-validator";
 
 export class CreateUserDto {
 
@@ -14,7 +14,7 @@ export class CreateUserDto {
     email: string;
 
     @IsOptional()
-    @IsIn(["admin", "holder", "user"],{
+    @IsIn(["super-user","admin", "holder", "user"],{
         message: 'El campo roles debe ser de tipo arreglo',
         each: true
     })

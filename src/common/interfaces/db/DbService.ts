@@ -20,6 +20,10 @@ import type { LastEventGroupRequest as _events_LastEventGroupRequest, LastEventG
 import type { LastEventRequest as _events_LastEventRequest, LastEventRequest__Output as _events_LastEventRequest__Output } from '../events/LastEventRequest';
 import type { ResponseGroups as _groups_ResponseGroups, ResponseGroups__Output as _groups_ResponseGroups__Output } from '../groups/ResponseGroups';
 import type { SearchRequestGroup as _groups_SearchRequestGroup, SearchRequestGroup__Output as _groups_SearchRequestGroup__Output } from '../groups/SearchRequestGroup';
+import type { EmptyRequest as _db_EmptyRequest, EmptyRequest__Output as _db_EmptyRequest__Output } from '../db/EmptyRequest';
+import type { ResponseTest as _db_ResponseTest, ResponseTest__Output as _db_ResponseTest__Output } from '../db/ResponseTest';
+
+
 import { Observable } from 'rxjs';
 
 export interface DbServiceClient extends grpc.Client {
@@ -60,28 +64,35 @@ export interface DbServiceClient extends grpc.Client {
   
   SearchGroups(argument: _groups_SearchRequestGroup): Observable<_groups_ResponseGroups__Output>;
   searchGroups(argument: _groups_SearchRequestGroup): Observable<_groups_ResponseGroups__Output>;
+
+  Test(argument: _db_EmptyRequest): Observable<_db_ResponseTest__Output>;
+  test(argument: _db_EmptyRequest): Observable<_db_ResponseTest__Output>;
+
+
   
 }
 
 export interface DbServiceHandlers extends grpc.UntypedServiceImplementation {
   FindOneAccount: grpc.handleUnaryCall<_accounts_AccountRequest__Output, _accounts_Account>;
-  
+
   FindOneGroup: grpc.handleUnaryCall<_groups_GroupRequestFilter__Output, _groups_Group>;
-  
+
   GetEventsFromGroup: grpc.handleUnaryCall<_events_EventsGrouprequest__Output, _events_GroupsEventsResponse>;
-  
+
   GetEventsWithAccounts: grpc.handleUnaryCall<_events_EventsRequest__Output, _events_AccountsEventResponse>;
-  
+
   GetEventsWithOutAccounts: grpc.handleUnaryCall<_events_EventsWOAccountRequest__Output, _events_EventWOAccountResponse>;
-  
+
   GetLasEventFromAccount: grpc.handleUnaryCall<_events_LastEventRequest__Output, _events_AccountsLastEventResponse>;
-  
+
   GetLastEventFromGroup: grpc.handleUnaryCall<_events_LastEventGroupRequest__Output, _events_GroupsLastEventResponse>;
-  
+
   SearchAccounts: grpc.handleUnaryCall<_accounts_AccountsRequest__Output, _accounts_AccountsResponse>;
-  
+
   SearchGroups: grpc.handleUnaryCall<_groups_SearchRequestGroup__Output, _groups_ResponseGroups>;
-  
+
+  Test: grpc.handleUnaryCall<_db_EmptyRequest__Output, _db_ResponseTest>;
+
 }
 
 export interface DbServiceDefinition extends grpc.ServiceDefinition {
@@ -94,4 +105,5 @@ export interface DbServiceDefinition extends grpc.ServiceDefinition {
   GetLastEventFromGroup: MethodDefinition<_events_LastEventGroupRequest, _events_GroupsLastEventResponse, _events_LastEventGroupRequest__Output, _events_GroupsLastEventResponse__Output>
   SearchAccounts: MethodDefinition<_accounts_AccountsRequest, _accounts_AccountsResponse, _accounts_AccountsRequest__Output, _accounts_AccountsResponse__Output>
   SearchGroups: MethodDefinition<_groups_SearchRequestGroup, _groups_ResponseGroups, _groups_SearchRequestGroup__Output, _groups_ResponseGroups__Output>
+  Test: MethodDefinition<_db_EmptyRequest, _db_ResponseTest, _db_EmptyRequest__Output, _db_ResponseTest__Output>
 }

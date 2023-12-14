@@ -4,13 +4,17 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './common/common.module';
-import { AccountsModule } from './accounts/accounts.module';
 import { ReportsModule } from './reports/reports.module';
 import { MailerModule } from './mailer/mailer.module';
 import { Logger } from './middlewares/logger.middleware';
 import { join } from 'path';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { DownloadModule } from './download/download.module';
+import { CompanyModule } from './company/company.module';
+import { CustomGroupModule } from './custom-group/custom-group.module';
+import { GroupAccountModule } from './group-account/group-account.module';
+import { UserAccountsModule } from './user-accounts/user-accounts.module';
+import { ServicesModule } from './services/services.module';
 
 
 @Module({
@@ -37,10 +41,14 @@ import { DownloadModule } from './download/download.module';
     AuthModule,
     UserModule,
     CommonModule,
-    AccountsModule,
-    ReportsModule,
     MailerModule,
-    DownloadModule
+    DownloadModule,
+    CompanyModule,
+    UserAccountsModule,
+    GroupAccountModule,
+    CustomGroupModule,
+    ReportsModule,
+    ServicesModule,
   ],
   controllers: [],
   providers: [],

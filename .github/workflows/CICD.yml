@@ -1,0 +1,59 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: CICD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  create-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v3
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.TOKEN_DEPLOY }}
+    - name: Build the image 
+      run: | 
+        docker build . --tag ghcr.io/pemsa-devbk/consultas_back/consultas_back:latest
+        docker push ghcr.io/pemsa-devbk/consultas_back/consultas_back:latest
+
+  deploy:
+    needs: create-docker-image
+    runs-on: ubuntu-latest
+    steps: 
+      - name: install sshpass
+        run: sudo apt-get install -y sshpass
+      - name: SSH into server
+        run: |
+          sshpass -p ${{ secrets.SERVER_PASSWORD }} ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} -p 3000 <<EOF 
+            cd /home/server_admin/dp/prelmo/back/api_7000_consultas/ 2>&1 || echo "Error al cambiar de directorio: \$?"
+            docker login ghcr.io -u pemsa-devbk -p ${{ secrets.TOKEN_DEPLOY }}
+            docker pull ghcr.io/pemsa-devbk/consultas_back/consultas_back:latest
+            docker stop consultas_back && docker rm consultas_back
+            docker run -d \
+              --name consultas_back \
+              --network rpc_mw \
+              --restart always \
+              -p 7000:3000 \
+              -v /home/server_admin/dp/prelmo/back/api_7000_consultas/certs:/app/dist/certs \
+              -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
+              -e DB_NAME="${{ secrets.DB_NAME }}" \
+              -e DB_HOST="${{ secrets.DB_HOST }}" \
+              -e DB_PORT="${{ secrets.DB_PORT }}" \
+              -e DB_USERNAME="${{ secrets.DB_USERNAME }}" \
+              -e EMAIL_MAIL="${{ secrets.EMAIL_MAIL }}" \
+              -e PASSWORD_MAIL="${{ secrets.PASSWORD_MAIL }}" \
+              -e HOST_MAIL="${{ secrets.HOST_MAIL }}" \
+              -e PORT_MAIL="${{ secrets.PORT_MAIL }}" \
+              -e PASSWORD_ENCRYPT="${{ secrets.PASSWORD_ENCRYPT }}" \
+              ghcr.io/pemsa-devbk/consultas_back/consultas_back:latest 
+          EOF

@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
-import { UserAccounts } from '../../accounts/entities/user-accounts.entity';
-import { CustomGroup } from '../../accounts/entities/custom-group.entity';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Company } from '../../company/entities/company.entity';
+import { UserAccounts } from "../../user-accounts/entities/user-accounts.entity";
+import { CustomGroup } from "../../custom-group/entities/custom-group.entity";
 
 @Entity('users')
 export class User {
@@ -55,30 +56,35 @@ export class User {
 
     @ManyToOne(
         () => User,
-        (user) => user.usersCreated,
-        {nullable: true}
+        (userCreator) => userCreator.usersCreated,
+        {nullable: true, onDelete: 'CASCADE', createForeignKeyConstraints: false}
     )
     createdBy: User;
 
     @OneToMany(
         () => User,
         (user) => user.createdBy,
-        {nullable: true, onDelete: "CASCADE"}
     )
-    usersCreated?: User[];
+    usersCreated: User[];
 
     @OneToMany(
         () => UserAccounts,
         (userAccount) => userAccount.user,
-        { cascade: true }
     )
-    accounts?: UserAccounts[];
+    accounts: UserAccounts[];
 
     @OneToMany(
         () => CustomGroup,
         (customGroup) => customGroup.user,
-        { cascade: true }
     )
     groups: CustomGroup[];
+
+
+    @ManyToOne(
+        () => Company,
+        (company) => company.users,
+        {onDelete: 'CASCADE'}
+    )
+    company: Company;
 
 }

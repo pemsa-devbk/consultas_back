@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, HttpCode, VERSION_NEUTRAL } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpCode } from '@nestjs/common';
 import { User } from '../user/entities';
 import { AuthService } from './auth.service';
 import { Auth, GetUser } from './decorators';
 import { LoginUserDto } from './dto';
 
 @Controller({
-  version: VERSION_NEUTRAL,
+  version: '1',
   path: 'auth'
 })
 export class AuthController {

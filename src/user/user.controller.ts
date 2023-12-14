@@ -6,10 +6,11 @@ import { User } from './entities';
 import { ValidRoles } from '../auth/interfaces';
 
 @Controller({
-  version: VERSION_NEUTRAL,
+  version: '1',
   path: 'user'
 })
 export class UserController {
+  
   constructor(private readonly userService: UserService) { }
 
   @Auth(ValidRoles.admin, ValidRoles.holder)

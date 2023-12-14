@@ -21,4 +21,14 @@ service DbService {
     // For groups
     rpc SearchGroups (SearchRequestGroup) returns (ResponseGroups);
     rpc FindOneGroup (GroupRequestFilter) returns (Group);
+    // TEST
+    rpc Test(EmptyRequest) returns (ResponseTest);
+}
+
+message ResponseTest{
+    string message = 1;
+}
+
+message EmptyRequest{
+
 }

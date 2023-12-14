@@ -3,6 +3,7 @@ import type { EnumTypeDefinition, MessageTypeDefinition } from '@grpc/proto-load
 
 import type { DbServiceClient as _db_DbServiceClient, DbServiceDefinition as _db_DbServiceDefinition } from './db/DbService';
 
+
 type SubtypeConstructor<Constructor extends new (...args: any) => any, Subtype> = {
   new(...args: ConstructorParameters<Constructor>): Subtype;
 };
@@ -25,6 +26,8 @@ export interface ProtoGrpcType {
   }
   db: {
     DbService: SubtypeConstructor<typeof grpc.Client, _db_DbServiceClient> & { service: _db_DbServiceDefinition }
+    EmptyRequest: MessageTypeDefinition
+    ResponseTest: MessageTypeDefinition
   }
   events: {
     AccountEventResponse: MessageTypeDefinition

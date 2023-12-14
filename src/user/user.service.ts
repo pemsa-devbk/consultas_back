@@ -2,11 +2,10 @@ import { BadRequestException, HttpException, Injectable, InternalServerErrorExce
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from './entities';
-import { DeepPartial, FindOneOptions, FindOptionsWhere, Like, Not, Raw, Repository } from 'typeorm';
+import { DeepPartial, FindOneOptions, FindOptionsWhere, Not, Raw, Repository } from 'typeorm';
 import { CreateUserDto, PaginationDto, UpdateUserDto } from './dto';
 import { ValidRoles } from '../auth/interfaces/valid-roles';
 import { MailerService } from '../mailer/mailer.service';
-import { isUUID } from 'class-validator';
 @Injectable()
 export class UserService {
 
@@ -16,16 +15,22 @@ export class UserService {
     private readonly mailerService: MailerService
   ) { }
 
-
-  async createUser(createUserDto: CreateUserDto, user: User) {
+  generateUser(createUserDto: CreateUserDto, user: User) {
     const password = this.generatePassword(10);
-    try {
-      const newUser = this.userRepository.create({
+    return {
+      user: this.userRepository.create({
         ...createUserDto,
         createdBy: user,
+        company: user.company,
         password: bcrypt.hashSync(password, 10)
-      });
-      
+      }),
+      password
+    }
+  }
+  async createUser(createUserDto: CreateUserDto, user: User) {
+    try {
+      const {password, user: newUser} = this.generateUser(createUserDto, user);
+
       await this.userRepository.save(newUser);
       await this.mailerService.sendWelcome(createUserDto.fullName, createUserDto.email, password);
 

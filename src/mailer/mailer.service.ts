@@ -18,10 +18,10 @@ export class MailerService implements OnModuleInit {
   constructor(
     private configService: ConfigService
   ) {
-    this.mail = configService.get<string>('MAIL');
-    this.password = configService.get('PASSWORD_MAIL');
-    this.host = configService.get('HOST_MAIL') || '';
-    this.port = configService.get<number>('PORT_MAIL', 587);
+    this.mail = this.configService.get<string>('EMAIL_MAIL');
+    this.password = this.configService.get('PASSWORD_MAIL');
+    this.host = this.configService.get('HOST_MAIL') || '';
+    this.port = this.configService.get<number>('PORT_MAIL', 587);
   }
 
   async sendWelcome(name: string, email: string, password: string) {

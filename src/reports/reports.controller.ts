@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException, VERSION_NEUTRAL } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
 import { Auth, GetUser } from '../auth/decorators';
 import { ReportsService } from './reports.service';
 import { User } from '../user/entities';
@@ -6,7 +6,7 @@ import { ReportDTO, ReportDatesDTO} from '../common/dto';
 
 
 @Controller({
-    version: VERSION_NEUTRAL,
+    version: '1',
     path: 'reports'
 })
 export class ReportsController {

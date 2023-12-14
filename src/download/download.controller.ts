@@ -7,7 +7,7 @@ import { GetUser } from '../auth/decorators/get-user.decorator';
 import { Auth } from '../auth/decorators/auth.decorator';
 
 @Controller({
-  version: VERSION_NEUTRAL,
+  version: '1',
   path: 'download'
 })
 export class DownloadController {
